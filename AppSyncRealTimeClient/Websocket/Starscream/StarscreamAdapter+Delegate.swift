@@ -45,6 +45,7 @@ extension StarscreamAdapter: Starscream.WebSocketDelegate {
     }
 
     private func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+        NotificationCenter.default.post(name: NSNotification.Name("SubcriptionStatusChanged"), object: nil)
         AppSyncLogger.verbose(
             "[StarscreamAdapter] websocketDidDisconnect: \(error?.localizedDescription ?? "No error")"
         )

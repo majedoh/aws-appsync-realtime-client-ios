@@ -58,6 +58,7 @@ extension AppSyncSubscriptionConnection {
         let retryAdvice = retryHandler.shouldRetryRequest(for: connectionError)
         if retryAdvice.shouldRetry, let retryInterval = retryAdvice.retryInterval {
             // swiftlint:disable:next line_length
+            NotificationCenter.default.post(name: NSNotification.Name("SubcriptionStatusChanged"), object: nil)
             AppSyncLogger.debug("[AppSyncSubscriptionConnection] Retrying subscription \(subscriptionItem.identifier) after \(retryInterval)")
             DispatchQueue.global().asyncAfter(deadline: .now() + retryInterval) {
                 self.connectionProvider?.connect()
